@@ -6,21 +6,21 @@ class Contato:
         self.telefone = telefone
         self.email = email
         self.criando_data = datetime.now()
-        self.data_atualização = datetime.now()
+        self.atualizaçao_data = datetime.now()
 
-    def atualizar_contato(self,telefone=None, email = None):
+    def atualizar_contato(self,telefone = None, email= None):
         if telefone:
             self.telefone = telefone
         if email:
             self. email = email
-            self.data_atualização = datetime.now()
+        self.atualizaçao_data = datetime.now()
 
     def __str__(self):
         return (f'Nome: {self.nome}\n'
                 f'Telefone: {self.telefone}\n'
                 f'Email: {self.email}\n'
-                f'Criado Em:{self.criando_data.strftime('%y/%m/%d %H %M')}\n'
-                F'Atualizado em: {self.data_atualização.strftime('%Y-%m-%d %H:%M')}\n'
+                f"Criado Em:{self.criando_data.strftime('%Y/%m/%d %H:%M')}\n"
+                f"Atualizado em: {self.atualizaçao_data.strftime('%Y-%m-%d %H:%M')}\n"
                 )
 class Agenda:
     def __init__(self):
@@ -29,13 +29,8 @@ class Agenda:
     def adicionar_contato(self, nome, telefone, email):
         if nome in self.contatos:
             print('Já existe um contato com esse nome.')          
-            print('Já existe um contato com esse nome')
         else:
-            self.contatos[nome] = {
-        'telefone': telefone,
-
-        'email' : email
-      }
+            self.contatos[nome] = Contato(nome, telefone, email)
         print('Contato Adicionado Com Sucesso!')
     
     def remover_contato(self,nome):
@@ -54,10 +49,18 @@ class Agenda:
     def listar_contatos(self):
         if self.contatos:
           for contato in self.contatos.values():
-            print(Contato)
-            print('='*20)
+            print(contato)
+            print('='*30)
         else:
             print('Agenda vazia.')
+
+    def atualizar_contato(self, nome, telefone=None, email=None):
+        if nome in self.contatos:
+            self.contatos[nome].atualizar_contato(telefone, email)
+            print('Contato atualizado com sucesso.')
+        else:
+            print('Contato não encontrado.')
+
 
     def menu(self):
      
@@ -68,7 +71,8 @@ class Agenda:
     2. Remover Contato
     3. Buscar Contato
     4. Listar Todos Os Contatos
-    5. Sair
+    5. Atualizar Contato
+    6. Sair
     ========================
     '''
 
@@ -77,23 +81,29 @@ class Agenda:
             opcao = input('Escolha uma opção: ')
 
             if opcao == '1':
-                nome = input('Nome: ')
-                telefone = input('Telefone: ')
-                email = input('Email: ')
+                nome = input('Nome:')
+                telefone = input('Telefone:')
+                email = input('Email:')
                 self.adicionar_contato( nome, telefone, email)
 
             elif opcao == '2':
-                nome = input('Nome do contato a ser removido: ')
-                self.remover_contato( nome)
+                nome = input('Nome do contato a ser removido:')
+                self.remover_contato(nome)
 
             elif opcao == '3':
                 nome = input('Nome do contato: ')
-                self.buscar_contato( nome)
+                self.buscar_contato(nome)
 
             elif opcao == '4':
                 self.listar_contatos()
 
             elif opcao == '5':
+                nome = input('Nome do contato: ')
+                telefone = input('Novo Telefone')
+                email = input('Novo Email ')
+                self.atualizar_contato(nome, telefone if telefone else None, email if email else None)
+
+            elif opcao == '6':
                 print('Saindo...')
                 break
 
