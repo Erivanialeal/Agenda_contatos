@@ -9,5 +9,5 @@ Esse projeto é uma simples agenda de contatos desenvolvida em Python, para trei
 
 #Tecnologias Utilizadas
 
-* Python
-* Biblioteca datetime para manipulação de datas e horas
+* Python:tecnologia ultilizada para desenvolver projetos.
+* Biblioteca datetime:Utilizada para manipulação de datas e horas registrando a criação e a atualização de contatos.
