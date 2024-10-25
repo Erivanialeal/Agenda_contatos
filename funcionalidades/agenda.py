@@ -63,7 +63,7 @@ class Agenda:
             if self.banco.atualizar_contato(nome, telefone, email):
                 return f'Contato {nome} atualizado com sucesso'
             else:
-                return f'Contato {nome} não encontrado'
+                return
         except Exception as e:
             return f'Erro ao atualizar contato: {e}'
 
