@@ -128,10 +128,9 @@ class Database:
             contatos= cursor.fetchall()
 
             if not contatos: #se não houver contato correspondente
-                return
+                return 'Nenhum contato encontrado'
             #Exibindo contatos encontrados
-            return 'Contatos encontrados:'
-        
+            print ('Contatos encontrados:')
             for contato in contatos:
                 print(f'ID {contato[0]} nome {contato[1]} telefone {contato[2]} email {contato[3]}')
 
@@ -142,8 +141,9 @@ class Database:
                 SET telefone = ?
                 WHERE LOWER(nome) = LOWER(?);
             ''',(telefone,nome))
-                print(f'Telefone atualizado para {telefone}')
+            print(f'Telefone atualizado para {telefone}')
 
+            #Atualizando email se fornecido
             if email is not None:
                 cursor.execute('''
                     UPDATE agenda
@@ -152,13 +152,12 @@ class Database:
             ''',(email,nome))
                 print(f'Email atualizado para {email}')
 
-                conexão.commit()
-                print("Contato atualizado com sucesso.")
+            conexão.commit()
+            return"Contato atualizado com sucesso."
             
         except Exception as e:
-
-            print(f'Erro ao atualizar contato {e}')
-
+            return f'Erro ao atualizar contato {e}'
+        finally:
             cursor.close()
             conexão.close()
 
