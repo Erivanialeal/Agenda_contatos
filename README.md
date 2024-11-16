@@ -1,6 +1,6 @@
 ## 📒 Agenda de Contatos:
 
-* Este projeto foi desenvolvido para praticar meus conhecimentos em Python. Com ele, aprendi operações básicas de SQL, integração com SQLite, boas práticas de organização de código, programação orientada a objetos (POO) e manipulação de datas e horas.
+* Este projeto foi desenvolvido para praticar meus conhecimentos em Python. Com ele, aprendi operações básicas de SQL, integração com SQLite, boas práticas de organização de código, programação orientada a objetos (POO) e manipulação de datas e horas. Também adicionei uma interface usando a biblioteca Tkinter do Python.
 
 ## ✨ Funcionalidades
 
@@ -19,6 +19,8 @@
 * 📅 Biblioteca datetime: Utilizada para manipulação de datas e horas, registrando a criação e atualização de contatos.
 
 * 💾 SQLite3: Usado para criar e gerenciar o banco de dados.
+  
+* 💻 Tkinter: Biblioteca para criar interface nativa da linguagem de programação Python.
 
 ## 🤝 Contribuições
 
