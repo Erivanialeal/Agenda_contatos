@@ -26,6 +26,7 @@ class Database:
 
 
 
+
     def adicionar_contato(self,nome, telefone, email):
         conexão, cursor = self.conectar()
         try:
@@ -88,11 +89,16 @@ class Database:
             
 
             if resultado:
-                for contato in resultado:
-                    print('contato encontrado:',contato) #impre os detalhes do contato
+                contato= resultado[0]
+                return{
+                    'id': contato[0],
+                    'nome': contato[1],
+                    'telefone':contato[2],
+                    'email': contato[3]
+                }
 
             else:
-                return f'Contato {nome} não encontrado.'
+                return None
 
         except Exception as e:
             print(f'Erro ao buscar {e}.')
@@ -160,6 +166,12 @@ class Database:
         finally:
             cursor.close()
             conexão.close()
+    
+    def sair(self):
+        conexão,curso=self.conectar()
+        curso.close()
+        conexão.close()
+        print('Conexão encerrada.')
 
 db=Database()
 db.tabela()
@@ -170,3 +182,4 @@ db.remover_contato('nome')
 contato = db.buscar_contato('nome')
 todos_os_contatos = db.listar_contato()
 db.atualizar_contato('nome', 'telefone', 'email')
+db.sair()
