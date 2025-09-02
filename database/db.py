@@ -1,10 +1,20 @@
 import sqlite3
+import os
 
 class Database:
     #função conectar para evitar a repetição de codigo nas outras funções
     def conectar(self):
         """Função para criar e retornar a conexão e o cursor."""
-        conexão = sqlite3.connect('sqlite/meu_banco.db')
+         # Descobre o caminho absoluto da raiz do projeto
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        caminho_db = os.path.join(base_dir,"meu_banco.db")
+        caminho_db = os.path.normpath(caminho_db)
+
+        if not os.path.exists(caminho_db):
+            raise FileNotFoundError(f"Banco de dados não encontrado: {caminho_db}")
+
+        
+        conexão = sqlite3.connect(caminho_db)
         cursor = conexão.cursor()
         return conexão, cursor
 
@@ -38,10 +48,8 @@ class Database:
         
             conexão.commit()
             return f'Contato {nome} adicionado com sucesso'
-            return True # True para indicar que a inserção foi bem sucedida
         except Exception as e:
             return f'Erro ao adicionar contato: {e}:'
-            return False
         finally:
             cursor.close()
             conexão.close()
