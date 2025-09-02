@@ -48,10 +48,8 @@ class Database:
         
             conexão.commit()
             return f'Contato {nome} adicionado com sucesso'
-            return True # True para indicar que a inserção foi bem sucedida
         except Exception as e:
             return f'Erro ao adicionar contato: {e}:'
-            return False
         finally:
             cursor.close()
             conexão.close()

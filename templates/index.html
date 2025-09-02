@@ -8,8 +8,79 @@
 
 </head>
 <body>
-    <h1> Agenda de contatos:</h1>
-    <h2></h2>
+    <h1> Minha agenda de contatos:</h1>
+    <!--Formulario de busca-->
+    <form>
+        <input type="text" placeholder="Nome do contato">
+        <button type="submit">🔍BUSCAR</button>
+    </form>
+    <!-- Espaçõ reservado para o resultado de busca-->
+     <section id="resultado-busca">
+        <!-- Quando a logica for implementada os resultados aparecerão aqui-->
+     </section>
+
+    <h3> Adicionar novo contato</h2>
+    <form id="form-contato">
+        <label for="nome"> Nome: </label>
+        <input type="text"id="nome" nome="nome">
+
+        <label for="telefone"> Telefone: </label>
+        <input type="tel" id="telefone" telefone="telefone">
+
+        <label for="email"> E-mail: </label>
+        <input type="email" id="email" email="email">
+
+        <button type="submit"> Adicionar Contato </button>
+    </form>
+    <!--Espaço reservado para a mensagens-->
+    <p id="mensagem"> </p>
+
+    <h3> Lista de Contatos </h2>
+
+    <!--Container com rolagem-->
+    <div class="lista-contatos">
+        <table id="agenda">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--Aqui os contatos serão inseridos futuramente-->
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div id="detalhe-contatos" class="detalhe-contatos oculto">
+        <h3> Detalhes do Contatos </h3>
+        <p>Nome: <span id="nome-contato"></span></p>
+        <p>Telefone: <span id="telefone-contato"></span></p>
+        <p>E-mail: <span id="email-contato"></span></p>
+        <button id="btn-excluir"> Excluir</button>
+    </div>
+    
+    <h3>Detalhes Do Contato Selecionado.</h3>
+
+    <table id="detalhe-contatos" style="display: none;">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>Acões</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--Aqui os detalhes dos contatos aparecerão-->
+        </tbody>
+
+    </table>
+
+        
+    </form>
 
 </body>
 </html>
