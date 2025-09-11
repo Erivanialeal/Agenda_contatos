@@ -1,22 +1,16 @@
-from shared.imports import  Blueprint, render_template,sqlite3,request,jsonify
+from shared.imports import  Blueprint, render_template,sqlite3,request,jsonify,redirect,url_for
 
 # Criando o Blueprint para os contatos
 contatos_bp= Blueprint('contatos', __name__)
 
-#pagina inicial do blueprint contatos
-@contatos_bp.route('/')
-def index():
-    return render_template('index.html')
-
-
 #rota para listar contatos
-@contatos_bp.route('/contatos')
+@contatos_bp.route('/')
 def lista_de_contatos():
     #conectar ao banco
     conec=sqlite3.connect('meu_banco.db')
     cursor=conec.cursor()
     #seleciona a tabela
-    cursor.execute('SELECT * FROM agenda')
+    cursor.execute('SELECT id,nome,telefone,email from agenda LIMIT 50')
     # busca todos os resultados
     contatos= cursor.fetchall()
     print(contatos)
@@ -91,5 +85,26 @@ def excluir_contato():
         return jsonify({f"erro":f"Erro ao deletar: {e}"}),500
     finally:
         conn.close()
+
+# rota para buscar contato
+@contatos_bp.route("/contatos/pesquisar",methods=["GET"])
+def pesquisar_contato():
+    #pegar o paramentro nome
+    nome = request.args.get("nome")
+    if not nome:
+        return redirect(url_for('contatos_bp.lista_de_contatos'))
+    #conectar ao banco
+    conn=sqlite3.connect("meu_banco.db")
+    cursor=conn.cursor()
+    #buscar o contato no banco
+    cursor.execute('SELECT id, nome, telefone, email from agenda WHERE nome= ?',(nome))
+    # armazenar o fechone
+    resultado= cursor.fetchone()
+    #tratar erros
+    if resultado is None:
+        return jsonify({"erro"," contato não encontrado"}), 404
+    return render_template("index.html",contatos=resultado)
+
+
 
 

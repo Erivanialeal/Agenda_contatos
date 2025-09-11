@@ -13,83 +13,51 @@
 <body>
 
     <header class="faixa-titulo">
-    <h1>Agenda de Contatos:</h1>
+    <h1>Agenda:</h1>
+    <div class="pesquisa">
+    <label for="pesquisa">Pesquisa</label>
+    <input type="text" name="pesquisa" placeholder="Nome do contato."
+    </div>
     </header>
+    <div class="principal">
+        <div class="titulos">
+            <h2>Adicionar Contato.</h2>
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" placeholder="Nome completo">
+            <label for="telefone">Telefone:</label>
+            <input type="number" name="número" placeholder="Número de Telefone">
+            <label for="E-mail">E-mail</label>
+            <input type="email" name="email" placeholder="Email">
 
-    <!--Formulario de busca-->
-    <section class="area-pesquisa">
-    <form>
-        <input type="text" placeholder="Buscar Contato">
-        <button type="submit">🔍BUSCAR</button>
-    </form>
-    </section>
-    <!-- Espaçõ reservado para o resultado de busca-->
-     <section id="resultado-busca">
-        <!-- Quando a logica for implementada os resultados aparecerão aqui-->
-     </section>
+            <section class="lista-contatos">
+                <h2>Lista De Contatos.</h2>
 
-    <h3> Adicionar novo contato</h2>
-    <form id="form-contato">
-        <label for="nome"> Nome: </label>
-        <input type="text"id="nome" nome="nome">
+                <ol>
+                    {% if contatos %}
+                        {% for contato in contatos %}
+                            <li>
+                                <span><strong>Nome:</strong>{{ contato[1]}}</span>|
+                                <span><strong>Telefone:</strong>{{contato[2]}}</span>|
+                                <span><strong>E-mail:</strong>{{contato[3]}}</span>|
+                                <span class="Acoes">
+                                    <button class="btn-editar" data-id="{{contato[0]}}">Editar</button>
+                                    <button class="btn-editar" data-id="{{contato[0]}}">Excluir</button>
+                                    <button class="btn-editar" data-id="{{contato[0]}}">Detalhes</button>
 
-        <label for="telefone"> Telefone: </label>
-        <input type="tel" id="telefone" telefone="telefone">
+                            </span>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                        <li>Nenhum contato encontardo.</li>
+                {% endif %}
+            </ol>
 
-        <label for="email"> E-mail: </label>
-        <input type="email" id="email" email="email">
 
-        <button type="submit"> Adicionar Contato </button>
-    </form>
-    <!--Espaço reservado para a mensagens-->
-    <p id="mensagem"> </p>
+        </section>
 
-    <h3> Lista de Contatos </h2>
 
-    <!--Container com rolagem-->
-    <div class="lista-contatos">
-        <table id="agenda">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!--Aqui os contatos serão inseridos futuramente-->
-            </tbody>
 
-        </table>
-
+        </div>
     </div>
 
-    <div id="detalhe-contatos" class="detalhe-contatos oculto">
-        <h3> Detalhes do Contatos </h3>
-        <p>Nome: <span id="nome-contato"></span></p>
-        <p>Telefone: <span id="telefone-contato"></span></p>
-        <p>E-mail: <span id="email-contato"></span></p>
-        <button id="btn-excluir"> Excluir</button>
-    </div>
     
-    <h3>Detalhes Do Contato Selecionado.</h3>
-
-    <table id="detalhe-contatos" style="display: none;">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>E-mail</th>
-                <th>Acões</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!--Aqui os detalhes dos contatos aparecerão-->
-        </tbody>
-
-    </table>
-
-        
-    </form>
-
-</body>
-</html>
