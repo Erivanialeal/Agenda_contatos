@@ -1,22 +1,16 @@
-from shared.imports import  Blueprint, render_template,sqlite3,request,jsonify
+from shared.imports import  Blueprint, render_template,sqlite3,request,jsonify,redirect,url_for
 
 # Criando o Blueprint para os contatos
 contatos_bp= Blueprint('contatos', __name__)
 
-#pagina inicial do blueprint contatos
-@contatos_bp.route('/')
-def index():
-    return render_template('index.html')
-
-
 #rota para listar contatos
-@contatos_bp.route('/contatos')
+@contatos_bp.route('/')
 def lista_de_contatos():
     #conectar ao banco
     conec=sqlite3.connect('meu_banco.db')
     cursor=conec.cursor()
     #seleciona a tabela
-    cursor.execute('SELECT * FROM agenda')
+    cursor.execute('SELECT id,nome,telefone,email from agenda LIMIT 50')
     # busca todos os resultados
     contatos= cursor.fetchall()
     print(contatos)
@@ -37,7 +31,7 @@ def adicionar_contato():
     email=data.get('email')
 
     if not nome:
-        return jsonify({"erro:","O campo nome não pode está vazio."}), 400
+        return jsonify({"erro:":"O campo nome não pode está vazio."}), 400
     
     try:
         #conectar ao banco
@@ -47,7 +41,7 @@ def adicionar_contato():
         cursor.execute('INSERT INTO agenda (nome,telefone,email) VALUES (?,?,?)',(nome,telefone,email))
         #commitar as alterações
         conec.commit()
-        return jsonify({'mensagem':'Contato adicionado com sucesso!'}),200
+        return jsonify({'mensagem':'Contato adicionado com sucesso!'}),201
     except Exception as e:
         return jsonify({"erro":f"Erro ao adicionar contato {e}"}),500
     finally:
@@ -58,14 +52,15 @@ def adicionar_contato():
 @contatos_bp.route('/contatos/excluir', methods=['DELETE'])
 def excluir_contato():
     #receber os dados necessarios
-    data= request.get_json()
+    data=request.get_json()
     if not data:
-        return({"erro","Json invalido"}),400
+        return jsonify({"erro": "json inválido ou não enviado"}), 400
+    
+    contato_id = data.get('id')
+    if not contato_id:
+        return jsonify({"erro": "Id do contato é obrigatório"}), 400
     try:
         #definir a variavel id
-        contato_id=data.get('id')
-        if not contato_id:
-            return jsonify({'erro':'Id do contato é obrigatório'})
         contato_id=int(contato_id)
     except ValueError:
         return({"erro":"ID invalido"}),400
@@ -91,5 +86,36 @@ def excluir_contato():
         return jsonify({f"erro":f"Erro ao deletar: {e}"}),500
     finally:
         conn.close()
+
+# rota para buscar contato
+@contatos_bp.route("/contatos/pesquisar",methods=["GET"])
+def pesquisar_contato():
+    #pegar o paramentro nome
+    data = request.get_json()
+    if not data:
+        return jsonify({"erro": "dados inválidos ou não enviado"}),400
+    nome=data.get("nome")
+    if not nome:
+        return jsonify({"erro":"Campo nome é obrigatorio"}),400
+    #conectar ao banco
+    conn=sqlite3.connect("meu_banco.db")
+    cursor=conn.cursor()
+    #buscar o contato no banco
+    cursor.execute('SELECT id, nome, telefone, email FROM agenda WHERE nome= ?',(nome,))
+    # armazenar o fechone
+    resultado= cursor.fetchone()
+    #tratar erros
+    if resultado is None:
+        return jsonify({"erro"," contato não encontrado"}), 404
+    # retorna resultado como JSON
+    contato = {
+        "id": resultado[0],
+        "nome": resultado[1],
+        "telefone": resultado[2],
+        "email": resultado[3]
+    }
+    return jsonify(contato), 200
+
+
 
 

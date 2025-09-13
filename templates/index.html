@@ -1,86 +1,60 @@
 <!DOCTYPE html> <!-- Isso diz ao navegador que é um arquivo html-->
 <html lang="pt-br"> <!--Define o idioma da pagina-->
 <head>
+
     <meta charset="UTF-8" >
     <!-- define a largura rela do dispositivo-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AGENDA DE CONTATOS</title>
+    <title>Agenda de contatos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 </head>
 <body>
-    <h1> Minha agenda de contatos:</h1>
-    <!--Formulario de busca-->
-    <form>
-        <input type="text" placeholder="Nome do contato">
-        <button type="submit">🔍BUSCAR</button>
-    </form>
-    <!-- Espaçõ reservado para o resultado de busca-->
-     <section id="resultado-busca">
-        <!-- Quando a logica for implementada os resultados aparecerão aqui-->
-     </section>
 
-    <h3> Adicionar novo contato</h2>
-    <form id="form-contato">
-        <label for="nome"> Nome: </label>
-        <input type="text"id="nome" nome="nome">
+    <header class="faixa-titulo">
+    <h1>Agenda De Contatos.</h1>
 
-        <label for="telefone"> Telefone: </label>
-        <input type="tel" id="telefone" telefone="telefone">
+    <div class="pesquisa">
+    <label for="pesquisa">Pesquisa</label>
+    <input type="text" id="area-input" name="pesquisa" placeholder="Nome do contato.">
+    <button type="button" id="btn-pesquisar">pesquisar</button>
+    </div>
+    <p id="saida">Resultado aparecera aqui.</p>
+    </header>
 
-        <label for="email"> E-mail: </label>
-        <input type="email" id="email" email="email">
 
-        <button type="submit"> Adicionar Contato </button>
-    </form>
-    <!--Espaço reservado para a mensagens-->
-    <p id="mensagem"> </p>
 
-    <h3> Lista de Contatos </h2>
+    <div class="principal">
+        <div class="titulos">
+            <h2>Adicionar Contato.</h2>
 
-    <!--Container com rolagem-->
-    <div class="lista-contatos">
-        <table id="agenda">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!--Aqui os contatos serão inseridos futuramente-->
-            </tbody>
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Nome completo" required>
 
-        </table>
+            <label for="telefone">Telefone</label>
+            <input type="text" id='telefone' name="telefone" placeholder="Número de Telefone">
 
+            <label for="E-mail">email</label>
+            <input type="email" id="email" name="email" placeholder="Email">
+
+            <button id="btn-salvar" type="submit">Salvar</button>
+
+            <!-- Botão para mostrar/esconder a lista -->
+            <button id="btn-mostrar-lista">Mostrar Lista De Contatos</button>
+            <!-- Container da lista, inicialmente escondido -->
+            <div id="lista_contato" style="display: none;"></div>
+            <ol id="ol-contatos">
+                <!-- Os contatos serão inseridos aqui via JS -->
+            </ol>
+            <!-- Botão para carregar mais contatos -->
+            <button id="btn-ver-mais" style="display: none;">Ver Mais</button>
+        </div>
+        <script>
+            function mostrarLista(){
+
+            }
+        </script>
     </div>
 
-    <div id="detalhe-contatos" class="detalhe-contatos oculto">
-        <h3> Detalhes do Contatos </h3>
-        <p>Nome: <span id="nome-contato"></span></p>
-        <p>Telefone: <span id="telefone-contato"></span></p>
-        <p>E-mail: <span id="email-contato"></span></p>
-        <button id="btn-excluir"> Excluir</button>
-    </div>
     
-    <h3>Detalhes Do Contato Selecionado.</h3>
-
-    <table id="detalhe-contatos" style="display: none;">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>E-mail</th>
-                <th>Acões</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!--Aqui os detalhes dos contatos aparecerão-->
-        </tbody>
-
-    </table>
-
-        
-    </form>
-
-</body>
-</html>
