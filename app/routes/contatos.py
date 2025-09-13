@@ -31,7 +31,7 @@ def adicionar_contato():
     email=data.get('email')
 
     if not nome:
-        return jsonify({"erro:","O campo nome não pode está vazio."}), 400
+        return jsonify({"erro:":"O campo nome não pode está vazio."}), 400
     
     try:
         #conectar ao banco
@@ -41,7 +41,7 @@ def adicionar_contato():
         cursor.execute('INSERT INTO agenda (nome,telefone,email) VALUES (?,?,?)',(nome,telefone,email))
         #commitar as alterações
         conec.commit()
-        return jsonify({'mensagem':'Contato adicionado com sucesso!'}),200
+        return jsonify({'mensagem':'Contato adicionado com sucesso!'}),201
     except Exception as e:
         return jsonify({"erro":f"Erro ao adicionar contato {e}"}),500
     finally:
@@ -52,14 +52,15 @@ def adicionar_contato():
 @contatos_bp.route('/contatos/excluir', methods=['DELETE'])
 def excluir_contato():
     #receber os dados necessarios
-    data= request.get_json()
+    data=request.get_json()
     if not data:
-        return({"erro","Json invalido"}),400
+        return jsonify({"erro": "json inválido ou não enviado"}), 400
+    
+    contato_id = data.get('id')
+    if not contato_id:
+        return jsonify({"erro": "Id do contato é obrigatório"}), 400
     try:
         #definir a variavel id
-        contato_id=data.get('id')
-        if not contato_id:
-            return jsonify({'erro':'Id do contato é obrigatório'})
         contato_id=int(contato_id)
     except ValueError:
         return({"erro":"ID invalido"}),400
@@ -90,20 +91,30 @@ def excluir_contato():
 @contatos_bp.route("/contatos/pesquisar",methods=["GET"])
 def pesquisar_contato():
     #pegar o paramentro nome
-    nome = request.args.get("nome")
+    data = request.get_json()
+    if not data:
+        return jsonify({"erro": "dados inválidos ou não enviado"}),400
+    nome=data.get("nome")
     if not nome:
-        return redirect(url_for('contatos_bp.lista_de_contatos'))
+        return jsonify({"erro":"Campo nome é obrigatorio"}),400
     #conectar ao banco
     conn=sqlite3.connect("meu_banco.db")
     cursor=conn.cursor()
     #buscar o contato no banco
-    cursor.execute('SELECT id, nome, telefone, email from agenda WHERE nome= ?',(nome))
+    cursor.execute('SELECT id, nome, telefone, email FROM agenda WHERE nome= ?',(nome,))
     # armazenar o fechone
     resultado= cursor.fetchone()
     #tratar erros
     if resultado is None:
         return jsonify({"erro"," contato não encontrado"}), 404
-    return render_template("index.html",contatos=resultado)
+    # retorna resultado como JSON
+    contato = {
+        "id": resultado[0],
+        "nome": resultado[1],
+        "telefone": resultado[2],
+        "email": resultado[3]
+    }
+    return jsonify(contato), 200
 
 
 

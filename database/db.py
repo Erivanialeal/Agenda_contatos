@@ -181,13 +181,3 @@ class Database:
         conexão.close()
         print('Conexão encerrada.')
 
-db=Database()
-db.tabela()
-db.adicionar_contato('nome', 'telefone', 'email')
-db.remover_contato('nome')
-#a função buscar_contato e listar_contato precisa está sendo armazenadas por 
-#uma variável pois elas buscam resultados que podem ser ultilizados posteriomente.
-contato = db.buscar_contato('nome')
-todos_os_contatos = db.listar_contato()
-db.atualizar_contato('nome', 'telefone', 'email')
-db.sair()

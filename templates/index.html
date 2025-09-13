@@ -13,51 +13,48 @@
 <body>
 
     <header class="faixa-titulo">
-    <h1>Agenda:</h1>
+    <h1>Agenda De Contatos.</h1>
+
     <div class="pesquisa">
     <label for="pesquisa">Pesquisa</label>
-    <input type="text" name="pesquisa" placeholder="Nome do contato."
+    <input type="text" id="area-input" name="pesquisa" placeholder="Nome do contato.">
+    <button type="button" id="btn-pesquisar">pesquisar</button>
     </div>
+    <p id="saida">Resultado aparecera aqui.</p>
     </header>
+
+
+
     <div class="principal">
         <div class="titulos">
             <h2>Adicionar Contato.</h2>
-            <label for="nome">Nome:</label>
-            <input type="text" name="nome" placeholder="Nome completo">
-            <label for="telefone">Telefone:</label>
-            <input type="number" name="número" placeholder="Número de Telefone">
-            <label for="E-mail">E-mail</label>
-            <input type="email" name="email" placeholder="Email">
 
-            <section class="lista-contatos">
-                <h2>Lista De Contatos.</h2>
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Nome completo" required>
 
-                <ol>
-                    {% if contatos %}
-                        {% for contato in contatos %}
-                            <li>
-                                <span><strong>Nome:</strong>{{ contato[1]}}</span>|
-                                <span><strong>Telefone:</strong>{{contato[2]}}</span>|
-                                <span><strong>E-mail:</strong>{{contato[3]}}</span>|
-                                <span class="Acoes">
-                                    <button class="btn-editar" data-id="{{contato[0]}}">Editar</button>
-                                    <button class="btn-editar" data-id="{{contato[0]}}">Excluir</button>
-                                    <button class="btn-editar" data-id="{{contato[0]}}">Detalhes</button>
+            <label for="telefone">Telefone</label>
+            <input type="text" id='telefone' name="telefone" placeholder="Número de Telefone">
 
-                            </span>
-                        </li>
-                    {% endfor %}
-                {% else %}
-                        <li>Nenhum contato encontardo.</li>
-                {% endif %}
+            <label for="E-mail">email</label>
+            <input type="email" id="email" name="email" placeholder="Email">
+
+            <button id="btn-salvar" type="submit">Salvar</button>
+
+            <!-- Botão para mostrar/esconder a lista -->
+            <button id="btn-mostrar-lista">Mostrar Lista De Contatos</button>
+            <!-- Container da lista, inicialmente escondido -->
+            <div id="lista_contato" style="display: none;"></div>
+            <ol id="ol-contatos">
+                <!-- Os contatos serão inseridos aqui via JS -->
             </ol>
-
-
-        </section>
-
-
-
+            <!-- Botão para carregar mais contatos -->
+            <button id="btn-ver-mais" style="display: none;">Ver Mais</button>
         </div>
+        <script>
+            function mostrarLista(){
+
+            }
+        </script>
     </div>
 
     
