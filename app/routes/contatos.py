@@ -91,12 +91,9 @@ def excluir_contato():
 @contatos_bp.route("/contatos/pesquisar",methods=["GET"])
 def pesquisar_contato():
     #pegar o paramentro nome
-    data = request.get_json()
-    if not data:
-        return jsonify({"erro": "dados inválidos ou não enviado"}),400
-    nome=data.get("nome")
+    nome = request.args.get("nome")
     if not nome:
-        return jsonify({"erro":"Campo nome é obrigatorio"}),400
+        return jsonify({"erro":"Parâmetro 'nome' é obrigatório" }),400
     #conectar ao banco
     conn=sqlite3.connect("meu_banco.db")
     cursor=conn.cursor()
