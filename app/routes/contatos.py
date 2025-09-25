@@ -91,19 +91,19 @@ def excluir_contato():
 @contatos_bp.route("/contatos/pesquisar",methods=["GET"])
 def pesquisar_contato():
     #pegar o paramentro nome
-    nome = request.args.get("nome")
+    nome = request.args.get("nome","").strip().lower()
     if not nome:
         return jsonify({"erro":"Parâmetro 'nome' é obrigatório" }),400
     #conectar ao banco
     conn=sqlite3.connect("meu_banco.db")
     cursor=conn.cursor()
     #buscar o contato no banco
-    cursor.execute('SELECT id, nome, telefone, email FROM agenda WHERE nome= ?',(nome,))
+    cursor.execute('SELECT id, nome, telefone, email FROM agenda WHERE LOWER(nome)= ?', (nome,))
     # armazenar o fechone
     resultado= cursor.fetchone()
     #tratar erros
     if resultado is None:
-        return jsonify({"erro"," contato não encontrado"}), 404
+        return jsonify({"erro":" contato não encontrado"}), 404
     # retorna resultado como JSON
     contato = {
         "id": resultado[0],

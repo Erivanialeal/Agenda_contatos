@@ -22,7 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (data.erro){
                     saida.innerText = data.erro; //exibi a mensagem de erro
                 } else{
-                    saida.innerHTML = `<p>${data.nome} - ${data.telefone} - ${data.email} </p>`;
+                    // preecher os campos  individualmente
+                    document.getElementById("nome").textContent=`Nome: ${data.nome}`;
+                    document.getElementById("telefone").textContent=`Telefone:${data.telefone}`;
+                    document.getElementById("email").textContent=`Email:${data.email}`;
                 }
             })
             .catch(erro => {
