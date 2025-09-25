@@ -90,7 +90,7 @@ class Database:
             nome = nome.lower().strip() #remover espaços antes e depois do nome
             cursor.execute('''
                 SELECT * FROM agenda
-                WHERE LOWER(nome) = LOWER (?);
+                WHERE LOWER(TRIM(nome)) = LOWER(TRIM(?));
             ''',(nome,))
 
             resultado = cursor.fetchall() #usar fechall para pegar todos os resultados

@@ -6,6 +6,7 @@
     <!-- define a largura rela do dispositivo-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda de contatos</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
@@ -20,7 +21,12 @@
     <input type="text" id="area-input" name="pesquisa" placeholder="Nome do contato.">
     <button type="button" id="btn-pesquisar">pesquisar</button>
     </div>
-    <p id="saida">Resultado aparecera aqui.</p>
+    <div id="saida">
+        <p id="nome"></p>
+        <p id="telefone"></p>
+        <p id="email"></p>
+
+    </div>
     </header>
 
 
@@ -56,5 +62,8 @@
             }
         </script>
     </div>
+    <!--Conectando com o arquivo javascript-->
+    <script src="/static/script.js"></script>
+</body>
 
     
