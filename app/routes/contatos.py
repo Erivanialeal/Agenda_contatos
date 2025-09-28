@@ -52,7 +52,8 @@ def adicionar_contato():
 @contatos_bp.route('/contatos/excluir', methods=['DELETE'])
 def excluir_contato():
     #receber os dados necessarios
-    data=request.get_json()
+    data=request.get_json(force=True)
+    print("dados recebidos",data)
     if not data:
         return jsonify({"erro": "json inválido ou não enviado"}), 400
     

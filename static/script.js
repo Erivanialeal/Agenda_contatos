@@ -32,5 +32,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Erro:", erro);
             })
     })
+    //Botão de adicionar contato ou seja salvar
+    document.getElementById("btn-salvar").addEventListener("click", function () {
+        //pegar os valores adicionado no campo
+        const nome=document.getElementById("input-nome").value;
+        const telefone=document.getElementById("input-telefone").value;
+        const email=document.getElementById("input-email").value;
+        // guardado dados do novo contato
+        const novoContato = {
+            nome: nome,
+            telefone: telefone,
+            email: email
+        };
+        // fazer a requisição Post
+        fetch("/contatos/adicionar",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(novoContato)
+        })
+        .then(response => {
+            // campo por enquanto só confirma que foi enviada 
+            if(!response.ok){
+                throw new Error("Erro ao salvar contato");
+            }
+            // sucesso silencioso
+
+        })
+        // metado de tratamento de exceções
+        .catch(error => {
+            console.error("Erro ao salvar:", error);
+
+        });
+    });
 
 });

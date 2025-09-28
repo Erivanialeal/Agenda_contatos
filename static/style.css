@@ -31,7 +31,7 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 8px;
-    border:2px solid #333;
+    border:2px solid #737272;
     padding: 5px;
     font-size: large;
     
@@ -52,11 +52,18 @@ body {
 }
 
 #btn-pesquisar{
-    background-color: #2c3e50;
-    color: #f9f9f9;
+    background-color: #007bff;
     cursor: pointer;
     border-radius: 5px;
     height: 25px;     /* altura */
+
+}
+#btn-excluir{
+    background-color:  #007bff;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 25px; /*altura*/
+    margin-left: 10px;
 
 }
 #area-input{
@@ -109,25 +116,24 @@ body {
     width: 100px;
     border-radius: 8px;
     cursor: pointer;
-    background-color: #2c3e50;
-    color: white;
+    background-color: #007bff;
 
 }
 #btn-mostrar-lista{
     height: 35px;
     border-radius: 8px;
     cursor: pointer;
-    color: #0d0e0e;
+    color:  #091313;
     font-size: 20px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    font-weight: bold;
+    text-shadow: 1px 1px 2px   #1d2020(0,0,0,0.2);
+    box-shadow: 0 2px 6p  #212323(0, 0, 0, 0.15);
+    font-weight: bolder;
     border: none;
     transition: background-color 0.3s ease;
     
 }
 /* Quando o mouse passa por cima */
 button:hover {
-  background-color: #666d69;     /* nova cor ao passar o mouse */
+  background-color:  #007bff;     /* nova cor ao passar o mouse */
   color: #f0f0f0;                /* cor do texto mais clara */
 }
