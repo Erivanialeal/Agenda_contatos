@@ -38,7 +38,6 @@ body {
 }
 #saida{
     background-color: #b2c1dc;
-    margin: 0;
     font-size: 20px;
     font-weight: bold;
     padding: 10px;
@@ -46,7 +45,6 @@ body {
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 12px;
     margin-bottom: 10px;
     max-width: 300px;
 }
@@ -63,8 +61,14 @@ body {
     cursor: pointer;
     border-radius: 5px;
     height: 25px; /*altura*/
-    margin-left: 10px;
-
+    margin: 0;
+    display: none;
+    transition: opacity 0.3s ease, display 0.3s ease;
+    opacity: 0;
+}
+#btn-excluir.mostrar {
+    display: inline-block;
+    opacity: 1;
 }
 #area-input{
     border: 1px solid #8a8888;
